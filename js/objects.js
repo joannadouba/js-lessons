@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // Object-oriented Programming (OOP)
 
 const circle = {
@@ -87,7 +86,8 @@ console.log(anotherCircle)
 // Using the 'spread' operator or ...
 const aThirdCircle = { ...circle };
 console.log(aThirdCircle);
-=======
+
+
 // Object-oriented Programming (OOP)
 
 const circle = {
@@ -115,8 +115,8 @@ function createCircle(radius) {
     }
 }
 
-const circle1 = createCircle(1)
-console.log(circle1)
+const circle11 = createCircle(1)
+console.log(circle11)
 
 // Constructor functions
 
@@ -127,8 +127,8 @@ function Circle(radius) { // We are using Pascal Case (capitalizing each first l
     }
 }
 
-const circle2 = new Circle(2)
-console.log(circle2)
+const circle22 = new Circle(2)
+console.log(circle22)
 
 // Objects are dynamic
 // We can add or remove properties to and from objects 
@@ -158,21 +158,21 @@ for (let entry of Object.entries(circle))
 ('location' in circle) ? console.log('yes') : console.log('no')
 
 // Cloning an object:
-const another = {};
+const another1 = {};
 
 // Old method for cloning an object:
 for (let key in circle) {
-    another[key] = circle[key];
+    another1[key] = circle[key];
 }
 
-console.log(another)
+console.log(another1)
 
 // New method for cloning an object:
 // first argument in assign() allows you to add properties to the object being cloned
-const anotherCircle = Object.assign({}, circle);
-console.log(anotherCircle)
+const aSecondCircle = Object.assign({}, circle);
+console.log(aSecondCircle)
 
 // Newest and easiest method for cloning an object:
 // Using the 'spread' operator or ...
-const aThirdCircle = { ...circle };
-console.log(aThirdCircle);
+const a3rdCircle = { ...circle };
+console.log(a3rdCircle);
