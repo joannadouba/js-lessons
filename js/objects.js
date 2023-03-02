@@ -119,7 +119,6 @@ const circle11 = createCircle(1)
 console.log(circle11)
 
 // Constructor functions
-
 function Circle(radius) { // We are using Pascal Case (capitalizing each first letter ) because that's the convention for this type of function
     this.radius = radius
     this.draw = function() {
@@ -129,6 +128,50 @@ function Circle(radius) { // We are using Pascal Case (capitalizing each first l
 
 const circle22 = new Circle(2)
 console.log(circle22)
+
+// Abstraction inside Constructor Functions
+// Getters and Setters
+// When we write constructor functions, we must be aware of the properties that are being displayed to the outside, since there are things we might not want to be exposed to the end user. So, we can define them as variables inside the constructor function instead to protect them. Example below:
+
+function Circle1(radius) {
+    this.radius = radius;
+
+    //instead of:
+    // this.defaultLocation = { x:0, y:0 };
+    // this.computeOptimumLocation = function(factor) {
+    //     console.log('optimum location', factor);
+    // }
+    let defaultLocation = { x:0, y:0 };
+    // To access this variable (defaultLocation) from the outside of the object, we must do the following:
+    Object.defineProperty(this, 'defaultLocation', 
+        {
+            get: function() {
+                return defaultLocation;
+            },
+            set: function(value) {
+                if(!value.x || !value.y)
+                    throw new Error('Invalid location')
+                defaultLocation = value;
+            }
+        }
+    )
+
+    let computeOptimumLocation = function(factor) { 
+        console.log('optimum location', factor);
+    }
+    
+    this.draw = function(){
+        computeOptimumLocation(1);
+        console.log('draw');
+    }
+}
+
+const circle3 = new Circle1(10);
+// circle3.computeOptimumLocation();
+// circle3.draw();
+console.log(circle3)
+circle3.defaultLocation = {x: 1, y: 1};
+console.log(circle3)
 
 // Objects are dynamic
 // We can add or remove properties to and from objects 
