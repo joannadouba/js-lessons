@@ -175,3 +175,98 @@ const priceRanges = [
         maxPerPerson: 40,
     },
 ]
+
+/*-----------------------------------------
+        JS Advanced Topics: Objects Exercises
+------------------------------------------ */
+
+// Exercise 1: Stopwatch
+// Write a Stopwatch object using the constructor function
+// Stopwatch properties:
+// - duration
+// - reset()
+// - start() - we shouldnt be able to call this twice in a row
+// - stop - we shouldnt be able to call this twice in a row
+
+const sw = new Stopwatch();
+console.log(sw);
+
+// My Solution:
+function Stopwatch() {
+    let duration = 0;
+    let id;
+    let stopped = false;
+
+    Object.defineProperty(this, 'duration', {
+        get: function() {
+            return duration;
+        },
+        set: function(){
+            throw new Error('You may not set the duration yourself.')
+        }
+    })
+    
+    this.start = function(){
+        if (duration !== 0)
+            throw new Error('Stopwatch has already started');
+
+        id = setInterval(function(){
+            duration++;
+            // return duration;
+            this.duration = duration;
+        }, 1000)   
+    };
+    
+    this.stop = function() {
+        if (stopped === true)
+            throw new Error('Stopwatch has already stopped');
+        
+        stopped = true;
+        clearInterval(id);
+    };
+
+    this.reset = function() {
+        duration = 0;
+    }
+
+}
+
+// Mosh's solution:
+// Mosh's solution is simpler and more elegant because I am using the setInterval() function which will repeat the function calls until we stop it. 
+// In Mosh's solution, we are using the Date() object, so we are storing 2 dates and comparing them. Not asking a function to repeat x number of times.
+function Stopwatch1() { 
+    let startTime, endTime, running, duration = 0;
+  
+    this.start = function() {
+      if (running) 
+        throw new Error('Stopwatch has already started.');
+      
+      running = true; 
+  
+      startTime = new Date();
+    };
+  
+    this.stop = function() {
+      if (!running) 
+        throw new Error('Stopwatch is not started.');
+  
+      running = false; 
+        
+      endTime = new Date();
+  
+      const seconds = (endTime.getTime() - startTime.getTime()) / 1000;
+      duration += seconds; 
+    };
+  
+    this.reset = function() { 
+      startTime = null;
+      endTime = null;
+      running = false; 
+      duration = 0; 
+    };
+  
+    Object.defineProperty(this, 'duration', {
+      get: function() { return duration; }
+    });
+  }
+  

@@ -129,6 +129,9 @@ function Circle(radius) { // We are using Pascal Case (capitalizing each first l
 const circle22 = new Circle(2)
 console.log(circle22)
 
+/*-----------------------------------------
+       JS Advanced Topics: Objects
+------------------------------------------ */
 // Abstraction inside Constructor Functions
 // Getters and Setters
 // When we write constructor functions, we must be aware of the properties that are being displayed to the outside, since there are things we might not want to be exposed to the end user. So, we can define them as variables inside the constructor function instead to protect them. Example below:
@@ -172,6 +175,11 @@ const circle3 = new Circle1(10);
 console.log(circle3)
 circle3.defaultLocation = {x: 1, y: 1};
 console.log(circle3)
+
+
+/*-----------------------------------------
+    End of JS Advanced Topics: Objects
+------------------------------------------ */
 
 // Objects are dynamic
 // We can add or remove properties to and from objects 
