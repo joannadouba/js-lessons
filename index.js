@@ -103,6 +103,8 @@ console.log(typeof myArray); // returns object
         myArray
 */
 
+// objectBase, the prototype for Objects, is the *only* Object without a prototype.
+
 // All objects created by the same 'constructor function' have the same prototype:
 function Circle(radius) {
     this.radius = radius;
@@ -156,3 +158,86 @@ console.log(Object.keys(person)); // returns an emtpy array because we turned en
 delete person.name;
 console.log(person); // returns { name: 'Michael' } because we set 'configurable' to false
 
+// Constructor functions also have a __proto__ property
+
+let obj = {};
+let objProto = obj.__proto__;
+let baseObject1 = Object.prototype;
+console.log(objProto);
+console.log(baseObject1);
+
+// obj.__proto__ and Object.prototype are exactly the same
+// Bad practice to use .__proto__ in our code, but we can confirm equality like this:
+if (objProto === baseObject1)
+    console.log(true); // returns true because they are the same
+
+// Same goes for arrays:
+let array = [];
+
+if (array.__proto__ === Array.prototype){
+    console.log(true); // returns true because they are the same
+}
+
+
+// Prototype vs Instance Members (properties or methods):
+
+// Below, we are instantiating only 2 instances of the Circle2 object using the contructor method. And in each one there is a draw method, so the draw method will be computed twice. Now let's imagine we have 1000's of instances of the Circle2 object, we would be holding a lot more information in memeory than we need to. So, we add the draw() method to the Circle prototype. This way, it is stored in memory only ONCE.
+
+function Circle2(radius) {
+    // Instance Members
+    this.radius = radius;
+    // this.draw = function() {
+    //     console.log('draw');
+    // }
+}
+
+// Prototype Members:
+Circle2.prototype.draw = function() {
+    console.log('draw');
+}
+
+const c1 = new Circle2(1);
+const c2 = new Circle2(1);
+
+console.log(c1, c2); // the draw() method is under the __proto__ property of each circle.
+
+// We can overwrite the default implementations for prototype methods that are writable (for ex. toString())
+console.log(c1.toString()) // returns [object Object] due to default implementation
+Circle2.prototype.toString = function() {
+    return 'Circle2 with radius ' + this.radius;
+}
+console.log(c1.toString()); // returns 'Circle2 with radius 1'
+
+// Instance members and prototype members can reference each other:
+function Circle3(radius) {
+    // Instance Members
+    this.radius = radius;
+    this.move = function(){
+        console.log('move');
+    }
+}
+
+// Prototype Members:
+Circle3.prototype.draw = function() {
+    console.log('draw');
+    this.move();
+}
+
+const c3 = new Circle3(1);
+const c4 = new Circle3(1);
+
+Circle3.prototype.toString = function() {
+    return 'Circle3 with radius ' + this.radius;
+}
+c3.draw(); // returns 'draw' then 'move'
+// We can also do the reverse, and reference a prototype member inside an instance member
+
+// When we are dealing with Object references (like adding a draw method to the prototype of the Circle object), it doesn't matter if we instantiate the new Circles before or after the definition of the draw function on the prototype because we are dealing with Object references.
+
+// Object.keys() only returns *instance members* and NOT *prototype members*
+console.log('c3 keys: ' + Object.keys(c3)); // returns c3 keys: radius,move
+// for loop returns both *instance members* AND *prototype members*
+for (const key in c3) console.log('c3 key ' + key); /* returns c3 key radius
+c3 key move
+c3 key draw
+c3 key toString */
