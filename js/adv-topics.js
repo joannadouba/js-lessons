@@ -140,10 +140,10 @@ console.log(descriptor); /* returns { writable: true,
                                       configurable: true, 
                                       value: ƒ
                                     } */
-// configurable: means we can delete the method(or prop) if we want to
-// enumerable: decides whether or not we see the method (or prop) when we enumerate an object (loop through it)
-// writable: decides whether or not we can overwrite the method
-// value: default value for a key or implementation of a method
+// *configurable*: means we can delete the method(or prop) if we want to
+// *enumerable*: decides whether or not we see the method (or prop) when we enumerate an object (loop through it)
+// *writable*: decides whether or not we can overwrite the method
+// *value*: default value for a key or implementation of a method
  
 Object.defineProperty(person, 'name', {
     writable: false,
