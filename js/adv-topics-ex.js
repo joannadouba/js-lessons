@@ -1,4 +1,4 @@
-*-----------------------------------------
+/*-----------------------------------------
         JS Advanced Topics: Objects Exercises
 ------------------------------------------ */
 
@@ -156,7 +156,7 @@ Stopwatch.prototype.reset = function() {
     this.duration = 0; 
 }
 
-const sw = new Stopwatch();
+const sw2 = new Stopwatch();
 
 
 // Mosh's Solution:
@@ -219,4 +219,4 @@ MoshStopwatch.prototype.reset = function() {
     this.running = false; 
 }
 
-const sw1 = new MoshStopwatch();
+const sw3 = new MoshStopwatch();
